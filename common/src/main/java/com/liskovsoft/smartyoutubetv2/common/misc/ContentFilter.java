@@ -108,7 +108,9 @@ public final class ContentFilter {
             "hottest girls", "boobs", "adult content", "playboy",
             "adults only", "adult only", "adults-only", "adult-only", "18+ cruise",
             "clothing optional", "nude beach", "nudist", "naturist", "topless",
-            "swimsuit", "swimsuits", "swimwear", "micro bikini", "thong"
+            "swimsuit", "swimsuits", "swimwear", "micro bikini", "thong",
+            "bikini haul", "pornstar", "pornstars", "porn star", "porno", "adult film",
+            "adult star", "xxx expo", "exxxotica", "avn awards"
     );
 
     // ---------------------------------------------------------------------
