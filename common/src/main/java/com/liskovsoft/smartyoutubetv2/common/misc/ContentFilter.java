@@ -108,6 +108,7 @@ public final class ContentFilter {
             "anderson cooper", "jake tapper", "dave rubin", "glenn beck", "jon stewart",
             // Your own additions
             "veronica weffer", "verónica weffer", "veronicaweffer",
+            "nathaniel drew", "nathanieldrew", "afroguajira", "afro guajira", "afro-guajira",
             // GTA (all games, including GTA 6)
             "gta", "gta6", "gtavi", "gta vi", "gta 6", "gta5", "gtav", "gta v",
             "grand theft auto", "rockstar games",
