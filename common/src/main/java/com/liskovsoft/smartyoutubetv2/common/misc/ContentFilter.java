@@ -157,7 +157,7 @@ public final class ContentFilter {
     // 6. News and political channels (matched against the channel name)
     // ---------------------------------------------------------------------
     private static final List<String> CHANNELS = Arrays.asList(
-            "cnn", "fox news", "fox business", "drm", "drm news", "oliveoilrun", "olive oil run", "fresh & fit", "fresh and fit", "freshandfit", "whatever podcast", "whatever", "powerful jre",
+            "cnn", "fox news", "fox business", "drm", "drm news", "oliveoilrun", "olive oil run", "eu explorer", "euexplorer", "eu-explorer", "fresh & fit", "fresh and fit", "freshandfit", "whatever podcast", "whatever", "powerful jre",
             "jre clips", "flagrant", "the breakfast club", "breakfast club power 105.1",
             "economics explained", "patrick boyle", "meet kevin", "graham stephan", "kitco news",
             "caspianreport", "caspian report", "visualpolitik", "visualpolitik en", "polymatter", "vox",
