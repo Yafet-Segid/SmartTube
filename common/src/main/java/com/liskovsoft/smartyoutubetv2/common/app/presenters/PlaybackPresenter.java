@@ -7,6 +7,7 @@ import android.content.Context;
 import com.liskovsoft.mediaserviceinterfaces.data.MediaItemMetadata;
 import com.liskovsoft.sharedutils.helpers.MessageHelpers;
 import com.liskovsoft.smartyoutubetv2.common.misc.ContentFilter;
+import com.liskovsoft.smartyoutubetv2.common.prefs.BlockedChannelData;
 import com.liskovsoft.smartyoutubetv2.common.app.models.data.Playlist;
 import com.liskovsoft.smartyoutubetv2.common.app.models.data.Video;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.BasePlayerController;
@@ -258,8 +259,21 @@ public class PlaybackPresenter extends BasePresenter<PlaybackView> implements Pl
 
         // Personal filter: a video opened only by its id (cast, link, autoplay) gets
         // its title and channel here. Close the player if it turns out to be blocked.
-        if (metadata != null && ContentFilter.isBlocked(metadata.getTitle(), metadata.getSecondTitle(),
-                metadata.getAuthor(), false)) {
+        if (metadata == null) {
+            return;
+        }
+
+        boolean isBlocked = ContentFilter.isBlocked(metadata.getTitle(), metadata.getSecondTitle(),
+                metadata.getAuthor(), false);
+        // The description only arrives here. A news-style description (e.g. #news, #politics)
+        // means the whole channel is about news, so the channel gets blocked for good.
+        boolean isNewsDescription = !isBlocked && ContentFilter.isBlockedDescription(metadata.getDescription());
+
+        if (isBlocked || isNewsDescription) {
+            if (isNewsDescription) {
+                BlockedChannelData.instance(getContext()).addChannel(metadata.getChannelId(), metadata.getAuthor());
+            }
+
             MessageHelpers.showMessage(getContext(), ContentFilter.BLOCKED_MESSAGE);
 
             if (getView() != null) {

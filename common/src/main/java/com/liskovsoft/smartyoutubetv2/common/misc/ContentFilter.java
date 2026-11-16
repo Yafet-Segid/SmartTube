@@ -3,8 +3,11 @@ package com.liskovsoft.smartyoutubetv2.common.misc;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -162,10 +165,23 @@ public final class ContentFilter {
     );
 
     /** Words and names: checked in titles, the line under the title and channel names. */
+    // ---------------------------------------------------------------------
+    // 7. Words that mark a channel as a news channel (checked only in channel names)
+    // ---------------------------------------------------------------------
+    private static final List<String> NEWS_CHANNEL_WORDS = Arrays.asList(
+            "tribune", "gazette", "herald", "chronicle", "dispatch", "newsroom", "newshour",
+            "newsnight", "newsline", "newsday", "newswire", "press tv", "the daily",
+            "politics", "political", "report tv", "news tv", "tv news", "24/7 news"
+    );
+
     private static final Pattern WORD_PATTERN = buildPattern(
             NEWS_WORDS, POLITICS_WORDS, POLITICIANS, COMMENTATORS, ADULT_WORDS);
     /** Channels: checked only in channel names, so a title like "the view from the top" is fine. */
-    private static final Pattern CHANNEL_PATTERN = buildPattern(CHANNELS);
+    private static final Pattern CHANNEL_PATTERN = buildPattern(CHANNELS, NEWS_CHANNEL_WORDS);
+    /** Hashtags like #news or #BreakingNews in a description. */
+    private static final Pattern HASHTAG_PATTERN = Pattern.compile("#([\\p{L}\\p{N}_]+)");
+    /** A description with this many different blocked words counts as news / politics. */
+    private static final int DESCRIPTION_WORD_LIMIT = 3;
 
     private ContentFilter() {
     }
@@ -203,6 +219,46 @@ public final class ContentFilter {
         }
 
         return CHANNEL_PATTERN.matcher(normalize(author)).find();
+    }
+
+    /**
+     * True when a video description looks like news or politics: a hashtag such as
+     * #news, #politics or #trump, or several different blocked words in the text.
+     * Only used when a video is opened (lists don't include descriptions).
+     */
+    public static boolean isBlockedDescription(CharSequence description) {
+        if (description == null || description.length() == 0) {
+            return false;
+        }
+
+        String text = normalize(description);
+
+        // 1. Hashtags: "#BreakingNews" -> "breaking news" style checks on each tag
+        Matcher tags = HASHTAG_PATTERN.matcher(text);
+        while (tags.find()) {
+            String tag = tags.group(1);
+            if (isBlockedText(tag) || isBlockedChannel(tag) || isBlockedHashtag(tag)) {
+                return true;
+            }
+        }
+
+        // 2. Several different blocked words in the description
+        Set<String> found = new HashSet<>();
+        Matcher words = WORD_PATTERN.matcher(text);
+        while (words.find()) {
+            found.add(words.group());
+            if (found.size() >= DESCRIPTION_WORD_LIMIT) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /** Joined hashtags like "breakingnews" or "uspolitics" that contain a news word. */
+    private static boolean isBlockedHashtag(String tag) {
+        return (tag.contains("news") && !tag.contains("newsletter")) || tag.contains("politic") || tag.contains("election")
+                || tag.contains("trump") || tag.contains("biden") || tag.contains("maga");
     }
 
     /** True when a search should not run. */
