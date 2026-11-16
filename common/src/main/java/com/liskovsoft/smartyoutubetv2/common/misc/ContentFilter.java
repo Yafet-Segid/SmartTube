@@ -92,7 +92,9 @@ public final class ContentFilter {
             "steven crowder", "tim pool", "piers morgan", "bill maher", "hasan piker",
             "brian tyler cohen", "rachel maddow", "sean hannity", "laura ingraham",
             "jesse watters", "megyn kelly", "alex jones", "joy reid", "don lemon",
-            "anderson cooper", "jake tapper", "dave rubin", "glenn beck", "jon stewart"
+            "anderson cooper", "jake tapper", "dave rubin", "glenn beck", "jon stewart",
+            // Your own additions
+            "veronica weffer", "verónica weffer", "veronicaweffer"
     );
 
     // ---------------------------------------------------------------------
