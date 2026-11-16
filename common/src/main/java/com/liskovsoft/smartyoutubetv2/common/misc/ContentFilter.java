@@ -105,7 +105,10 @@ public final class ContentFilter {
             "naked", "erotic", "seductive", "onlyfans", "only fans", "thirst trap",
             "bikini", "bikinis", "lingerie", "try on haul", "try-on haul",
             "twerk", "twerking", "stripper", "strip club", "hot girl", "hot girls",
-            "hottest girls", "boobs", "adult content", "playboy"
+            "hottest girls", "boobs", "adult content", "playboy",
+            "adults only", "adult only", "adults-only", "adult-only", "18+ cruise",
+            "clothing optional", "nude beach", "nudist", "naturist", "topless",
+            "swimsuit", "swimsuits", "swimwear", "micro bikini", "thong"
     );
 
     // ---------------------------------------------------------------------
