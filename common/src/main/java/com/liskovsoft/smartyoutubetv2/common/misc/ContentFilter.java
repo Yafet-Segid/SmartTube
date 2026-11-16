@@ -94,6 +94,12 @@ public final class ContentFilter {
             // Canada
             "mark carney", "carney", "pierre poilievre", "poilievre", "justin trudeau", "trudeau",
             "jagmeet singh", "doug ford", "danielle smith", "chrystia freeland",
+            "yves-francois blanchet", "yves-françois blanchet", "elizabeth may", "maxime bernier",
+            "don davies", "avi lewis", "heather mcpherson", "anita anand", "melanie joly", "mélanie joly",
+            "dominic leblanc", "francois-philippe champagne", "françois-philippe champagne",
+            "david eby", "wab kinew", "kinew", "scott moe", "francois legault", "françois legault",
+            "blanchet", "legault", "tim houston", "susan holt", "tony wakeham", "andrew furey", "rob lantz", "dennis king",
+            "nahid nenshi", "john rustad", "bonnie crombie", "marit stiles",
             // Texas
             "greg abbott", "governor abbott", "gov abbott", "gov. abbott", "ken paxton", "john cornyn", "cornyn",
             "lt gov dan patrick", "beto", "beto o'rourke", "colin allred", "jasmine crockett",
