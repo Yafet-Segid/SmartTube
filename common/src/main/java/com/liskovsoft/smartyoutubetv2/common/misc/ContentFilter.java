@@ -34,7 +34,7 @@ public final class ContentFilter {
             "news", "breaking news", "headlines", "top stories",
             "live update", "live updates", "press conference", "press briefing",
             "newscast", "news report", "news update", "news live", "evening news",
-            "morning news", "nightly news", "world news", "local news",
+            "morning news", "nightly news", "world news", "local news", "canada news", "canadian news",
             "news anchor", "journalist",
             "ዜና" // "news" in Tigrinya / Amharic
     );
@@ -81,7 +81,12 @@ public final class ContentFilter {
             // World
             "putin", "zelensky", "zelenskyy", "netanyahu", "xi jinping",
             "kim jong un", "modi", "starmer", "macron", "erdogan", "khamenei",
-            "isaias afwerki", "afwerki", "abiy ahmed"
+            "isaias afwerki", "afwerki", "abiy ahmed",
+            // Canada
+            "mark carney", "carney", "pierre poilievre", "poilievre", "justin trudeau", "trudeau",
+            "jagmeet singh", "doug ford", "danielle smith", "chrystia freeland", "parliament hill",
+            // Trade deals
+            "usmca", "cusma", "nafta", "t-mec", "trade war", "trade deal", "trade talks"
     );
 
     // ---------------------------------------------------------------------
@@ -129,7 +134,7 @@ public final class ContentFilter {
     // 6. News and political channels (matched against the channel name)
     // ---------------------------------------------------------------------
     private static final List<String> CHANNELS = Arrays.asList(
-            "cnn", "fox news", "fox business", "msnbc", "ms now", "abc news", "cbs news",
+            "cnn", "fox news", "fox business", "cbc", "cbc news", "ctv news", "ctv", "global news", "cpac", "the national", "rebel news", "the globe and mail", "toronto star", "national post", "msnbc", "ms now", "abc news", "cbs news",
             "nbc news", "bbc news", "sky news", "al jazeera english", "al jazeera",
             "reuters", "associated press", "pbs newshour", "newsnation", "newsmax",
             "cnbc", "cnbc television", "bloomberg television", "bloomberg originals",
