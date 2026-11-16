@@ -94,7 +94,10 @@ public final class ContentFilter {
             "jesse watters", "megyn kelly", "alex jones", "joy reid", "don lemon",
             "anderson cooper", "jake tapper", "dave rubin", "glenn beck", "jon stewart",
             // Your own additions
-            "veronica weffer", "verónica weffer", "veronicaweffer"
+            "veronica weffer", "verónica weffer", "veronicaweffer",
+            // GTA (all games, including GTA 6)
+            "gta", "gta6", "gtavi", "gta vi", "gta 6", "gta5", "gtav", "gta v",
+            "grand theft auto", "rockstar games"
     );
 
     // ---------------------------------------------------------------------
@@ -132,7 +135,7 @@ public final class ContentFilter {
             "last week tonight", "the daily show", "jimmy kimmel live",
             "the late show with stephen colbert", "late night with seth meyers",
             "candace owens", "matt walsh", "charlie kirk", "turning point usa",
-            "prageru", "the rubin report", "hasanabi", "eri-tv", "eritv"
+            "prageru", "the rubin report", "hasanabi", "eri-tv", "eritv", "rockstar games"
     );
 
     /** Words and names: checked in titles, the line under the title and channel names. */
