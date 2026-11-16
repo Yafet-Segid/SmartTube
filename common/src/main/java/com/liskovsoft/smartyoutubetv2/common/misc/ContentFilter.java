@@ -112,6 +112,8 @@ public final class ContentFilter {
             // Your own additions
             "veronica weffer", "verónica weffer", "veronicaweffer",
             "nathaniel drew", "nathanieldrew", "afroguajira", "afro guajira", "afro-guajira",
+            "claus kellerman", "clauskellerman", "tyler bucket", "tylerbucket", "jamin laine", "jaminlaine",
+            "rebel group", "rebel groups",
             // GTA (all games, including GTA 6)
             "gta", "gta6", "gtavi", "gta vi", "gta 6", "gta5", "gtav", "gta v",
             "grand theft auto", "rockstar games",
@@ -146,7 +148,7 @@ public final class ContentFilter {
     // 6. News and political channels (matched against the channel name)
     // ---------------------------------------------------------------------
     private static final List<String> CHANNELS = Arrays.asList(
-            "cnn", "fox news", "fox business", "livenow from fox", "livenow", "live now from fox", "fox weather", "fox 4", "fox 26 houston", "fox 7 austin", "wfaa", "khou", "khou 11", "kvue", "kxan", "kprc", "ksat", "kdfw", "nbc dfw", "nbc 5 dallas-fort worth", "fox 4 dallas-fort worth", "cbs news texas", "texas tribune", "the texas tribune", "cbc", "cbc news", "ctv news", "ctv", "global news", "cpac", "the national", "rebel news", "the globe and mail", "toronto star", "national post", "msnbc", "ms now", "abc news", "cbs news",
+            "cnn", "fox news", "fox business", "drm", "drm news", "livenow from fox", "livenow", "live now from fox", "fox weather", "fox 4", "fox 26 houston", "fox 7 austin", "wfaa", "khou", "khou 11", "kvue", "kxan", "kprc", "ksat", "kdfw", "nbc dfw", "nbc 5 dallas-fort worth", "fox 4 dallas-fort worth", "cbs news texas", "texas tribune", "the texas tribune", "cbc", "cbc news", "ctv news", "ctv", "global news", "cpac", "the national", "rebel news", "the globe and mail", "toronto star", "national post", "msnbc", "ms now", "abc news", "cbs news",
             "nbc news", "bbc news", "sky news", "al jazeera english", "al jazeera",
             "reuters", "associated press", "pbs newshour", "newsnation", "newsmax",
             "cnbc", "cnbc television", "bloomberg television", "bloomberg originals",
