@@ -113,7 +113,7 @@ public final class ContentFilter {
     // ---------------------------------------------------------------------
     private static final List<String> COMMENTATORS = Arrays.asList(
             "ben shapiro", "tucker carlson", "candace owens", "matt walsh", "charlie kirk",
-            "steven crowder", "tim pool", "piers morgan", "bill maher", "hasan piker",
+            "steven crowder", "tim pool", "piers morgan", "bill maher", "hasan piker", "hasanabi", "hasan abi",
             "brian tyler cohen", "rachel maddow", "sean hannity", "laura ingraham",
             "jesse watters", "megyn kelly", "alex jones", "joy reid", "don lemon",
             "anderson cooper", "jake tapper", "dave rubin", "glenn beck", "jon stewart",
