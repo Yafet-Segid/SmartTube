@@ -25,6 +25,8 @@ public final class ContentFilter {
     public static final boolean BLOCK_SHORTS = true;
     /** Remove the "News" section from the side menu. */
     public static final boolean HIDE_NEWS_SECTION = true;
+    /** A channel with even one video about a politician gets blocked permanently. */
+    public static final boolean BLOCK_CHANNELS_THAT_MENTION_POLITICIANS = true;
     /** Turn off the official update check (it would replace this personal build). */
     public static final boolean DISABLE_OFFICIAL_UPDATES = true;
     /** Message shown when a search or a video is blocked. */
@@ -87,17 +89,23 @@ public final class ContentFilter {
             "isaias afwerki", "afwerki", "abiy ahmed",
             // Canada
             "mark carney", "carney", "pierre poilievre", "poilievre", "justin trudeau", "trudeau",
-            "jagmeet singh", "doug ford", "danielle smith", "chrystia freeland", "parliament hill",
-            // Texas politics and the midterms
-            "greg abbott", "abbott", "ken paxton", "paxton", "john cornyn", "cornyn", "dan patrick",
-            "beto", "beto o'rourke", "colin allred", "jasmine crockett", "james talarico",
+            "jagmeet singh", "doug ford", "danielle smith", "chrystia freeland",
+            // Texas
+            "greg abbott", "governor abbott", "gov abbott", "gov. abbott", "ken paxton", "john cornyn", "cornyn",
+            "lt gov dan patrick", "beto", "beto o'rourke", "colin allred", "jasmine crockett",
+            "james talarico"
+    );
+
+    // ---------------------------------------------------------------------
+    // 3b. Political topics (hide the video, but don't block the whole channel)
+    // ---------------------------------------------------------------------
+    private static final List<String> POLITICAL_TOPICS = Arrays.asList(
+            "parliament hill",
             "texas politics", "texas election", "texas elections", "texas legislature",
             "texas senate", "texas house", "texas runoff", "texas primary", "redistricting",
             "midterm elections", "midterm election", "2026 midterms", "election day",
-            // NATO
             "nato", "nato summit", "otan",
-            // Trade deals
-            "usmca", "cusma", "nafta", "t-mec", "trade war", "trade deal", "trade talks"
+            "usmca", "cusma", "nafta", "t-mec", "trade war"
     );
 
     // ---------------------------------------------------------------------
@@ -177,7 +185,9 @@ public final class ContentFilter {
     );
 
     private static final Pattern WORD_PATTERN = buildPattern(
-            NEWS_WORDS, POLITICS_WORDS, POLITICIANS, COMMENTATORS, ADULT_WORDS);
+            NEWS_WORDS, POLITICS_WORDS, POLITICIANS, POLITICAL_TOPICS, COMMENTATORS, ADULT_WORDS);
+    /** Politicians only: a channel that talks about them gets blocked for good. */
+    private static final Pattern POLITICIAN_PATTERN = buildPattern(POLITICIANS);
     /** Channels: checked only in channel names, so a title like "the view from the top" is fine. */
     private static final Pattern CHANNEL_PATTERN = buildPattern(CHANNELS, NEWS_CHANNEL_WORDS);
     /** Hashtags like #news or #BreakingNews in a description. */
@@ -261,6 +271,24 @@ public final class ContentFilter {
     private static boolean isBlockedHashtag(String tag) {
         return (tag.contains("news") && !tag.contains("newsletter")) || tag.contains("politic") || tag.contains("election")
                 || tag.contains("trump") || tag.contains("biden") || tag.contains("maga");
+    }
+
+    /**
+     * True when the text names a politician. Used to block the whole channel
+     * permanently, not just the one video.
+     */
+    public static boolean mentionsPolitician(CharSequence... texts) {
+        if (!BLOCK_CHANNELS_THAT_MENTION_POLITICIANS) {
+            return false;
+        }
+
+        for (CharSequence text : texts) {
+            if (text != null && text.length() > 0 && POLITICIAN_PATTERN.matcher(normalize(text)).find()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /** True when a search should not run. */

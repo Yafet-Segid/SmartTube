@@ -267,10 +267,11 @@ public class PlaybackPresenter extends BasePresenter<PlaybackView> implements Pl
                 metadata.getAuthor(), false);
         // The description only arrives here. A news-style description (e.g. #news, #politics)
         // means the whole channel is about news, so the channel gets blocked for good.
-        boolean isNewsDescription = !isBlocked && ContentFilter.isBlockedDescription(metadata.getDescription());
+        boolean isNewsDescription = !isBlocked && (ContentFilter.isBlockedDescription(metadata.getDescription())
+                || ContentFilter.mentionsPolitician(metadata.getDescription()));
 
         if (isBlocked || isNewsDescription) {
-            if (isNewsDescription) {
+            if (isNewsDescription || ContentFilter.mentionsPolitician(metadata.getTitle(), metadata.getDescription())) {
                 BlockedChannelData.instance(getContext()).addChannel(metadata.getChannelId(), metadata.getAuthor());
             }
 

@@ -10,6 +10,7 @@ import com.liskovsoft.smartyoutubetv2.common.app.models.playback.service.VideoSt
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.service.VideoStateService.State;
 import com.liskovsoft.smartyoutubetv2.common.misc.ContentFilter;
 import com.liskovsoft.smartyoutubetv2.common.prefs.BlockedChannelData;
+import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -504,8 +505,24 @@ public class VideoGroup {
         }
 
         // A whole row titled e.g. "Breaking news" is hidden as well
-        return ContentFilter.isBlockedText(mTitle)
-                || ContentFilter.isBlocked(video.title, video.secondTitle, video.getAuthor(), video.isShorts);
+        if (ContentFilter.isBlockedText(mTitle)) {
+            return true;
+        }
+
+        if (!ContentFilter.isBlocked(video.title, video.secondTitle, video.getAuthor(), video.isShorts)) {
+            return false;
+        }
+
+        // A channel that talks about a politician is blocked for good
+        if (ContentFilter.mentionsPolitician(video.title, video.secondTitle)) {
+            String channelId = video.channelId;
+            String channelName = video.getAuthor();
+            if (channelId != null || channelName != null) {
+                Utils.post(() -> BlockedChannelData.instance(GlobalPreferences.context()).addChannel(channelId, channelName));
+            }
+        }
+
+        return true;
     }
 
     private boolean isWatchedSuggestion(Video video) {
