@@ -85,6 +85,12 @@ public final class ContentFilter {
             // Canada
             "mark carney", "carney", "pierre poilievre", "poilievre", "justin trudeau", "trudeau",
             "jagmeet singh", "doug ford", "danielle smith", "chrystia freeland", "parliament hill",
+            // Texas politics and the midterms
+            "greg abbott", "abbott", "ken paxton", "paxton", "john cornyn", "cornyn", "dan patrick",
+            "beto", "beto o'rourke", "colin allred", "jasmine crockett", "james talarico",
+            "texas politics", "texas election", "texas elections", "texas legislature",
+            "texas senate", "texas house", "texas runoff", "texas primary", "redistricting",
+            "midterm elections", "midterm election", "2026 midterms", "election day",
             // Trade deals
             "usmca", "cusma", "nafta", "t-mec", "trade war", "trade deal", "trade talks"
     );
@@ -134,7 +140,7 @@ public final class ContentFilter {
     // 6. News and political channels (matched against the channel name)
     // ---------------------------------------------------------------------
     private static final List<String> CHANNELS = Arrays.asList(
-            "cnn", "fox news", "fox business", "cbc", "cbc news", "ctv news", "ctv", "global news", "cpac", "the national", "rebel news", "the globe and mail", "toronto star", "national post", "msnbc", "ms now", "abc news", "cbs news",
+            "cnn", "fox news", "fox business", "wfaa", "khou", "khou 11", "kvue", "kxan", "kprc", "ksat", "kdfw", "nbc dfw", "nbc 5 dallas-fort worth", "fox 4 dallas-fort worth", "cbs news texas", "texas tribune", "the texas tribune", "cbc", "cbc news", "ctv news", "ctv", "global news", "cpac", "the national", "rebel news", "the globe and mail", "toronto star", "national post", "msnbc", "ms now", "abc news", "cbs news",
             "nbc news", "bbc news", "sky news", "al jazeera english", "al jazeera",
             "reuters", "associated press", "pbs newshour", "newsnation", "newsmax",
             "cnbc", "cnbc television", "bloomberg television", "bloomberg originals",
