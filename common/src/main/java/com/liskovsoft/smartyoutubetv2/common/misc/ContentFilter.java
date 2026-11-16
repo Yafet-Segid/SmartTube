@@ -86,6 +86,10 @@ public final class ContentFilter {
             // World
             "putin", "zelensky", "zelenskyy", "netanyahu", "xi jinping",
             "kim jong un", "modi", "starmer", "macron", "erdogan", "khamenei",
+            // European Union
+            "ursula von der leyen", "von der leyen", "friedrich merz", "merz", "giorgia meloni",
+            "meloni", "viktor orban", "viktor orbán", "orban", "orbán", "marine le pen", "le pen",
+            "pedro sanchez", "pedro sánchez", "donald tusk", "kaja kallas", "antonio costa",
             "isaias afwerki", "afwerki", "abiy ahmed",
             // Canada
             "mark carney", "carney", "pierre poilievre", "poilievre", "justin trudeau", "trudeau",
@@ -105,6 +109,9 @@ public final class ContentFilter {
             "texas senate", "texas house", "texas runoff", "texas primary", "redistricting",
             "midterm elections", "midterm election", "2026 midterms", "election day",
             "nato", "nato summit", "otan",
+            "eu", "e.u.", "european union", "european commission", "european parliament",
+            "european council", "brexit", "eurozone", "schengen", "brussels summit", "eu summit",
+            "eu leaders", "eu law", "eu rules", "eu ban", "eu sanctions", "eu tariffs",
             "usmca", "cusma", "nafta", "t-mec", "trade war"
     );
 
