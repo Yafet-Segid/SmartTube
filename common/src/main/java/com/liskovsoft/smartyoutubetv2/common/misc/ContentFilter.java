@@ -120,7 +120,7 @@ public final class ContentFilter {
             // Your own additions
             "veronica weffer", "verónica weffer", "veronicaweffer",
             "nathaniel drew", "nathanieldrew", "afroguajira", "afro guajira", "afro-guajira",
-            "patrick bet-david", "patrick bet david", "patrickbetdavid", "pbd podcast", "pbd", "valuetainment", "claus kellerman", "clauskellerman", "tyler bucket", "tylerbucket", "jamin laine", "jaminlaine",
+            "patrick bet-david", "patrick bet david", "patrickbetdavid", "pbd podcast", "pbd", "valuetainment", "aba and preach", "aba & preach", "aba&preach", "abaandpreach", "aba n preach", "claus kellerman", "clauskellerman", "tyler bucket", "tylerbucket", "jamin laine", "jaminlaine",
             "rebel group", "rebel groups",
             // GTA (all games, including GTA 6)
             "gta", "gta6", "gtavi", "gta vi", "gta 6", "gta5", "gtav", "gta v",
