@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.liskovsoft.mediaserviceinterfaces.data.MediaItemMetadata;
+import com.liskovsoft.sharedutils.helpers.MessageHelpers;
+import com.liskovsoft.smartyoutubetv2.common.misc.ContentFilter;
 import com.liskovsoft.smartyoutubetv2.common.app.models.data.Playlist;
 import com.liskovsoft.smartyoutubetv2.common.app.models.data.Video;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.BasePlayerController;
@@ -111,6 +113,12 @@ public class PlaybackPresenter extends BasePresenter<PlaybackView> implements Pl
 
     public void openVideo(Video video) {
         if (video == null) {
+            return;
+        }
+
+        // Personal filter: don't open blocked videos (e.g. cast from a phone or opened by a link)
+        if (ContentFilter.isBlocked(video.getTitle(), video.getSecondTitle(), video.getAuthor(), video.isShorts)) {
+            MessageHelpers.showMessage(getContext(), ContentFilter.BLOCKED_MESSAGE);
             return;
         }
 
@@ -247,6 +255,18 @@ public class PlaybackPresenter extends BasePresenter<PlaybackView> implements Pl
     @Override
     public void onMetadata(MediaItemMetadata metadata) {
         process(listener -> listener.onMetadata(metadata));
+
+        // Personal filter: a video opened only by its id (cast, link, autoplay) gets
+        // its title and channel here. Close the player if it turns out to be blocked.
+        if (metadata != null && ContentFilter.isBlocked(metadata.getTitle(), metadata.getSecondTitle(),
+                metadata.getAuthor(), false)) {
+            MessageHelpers.showMessage(getContext(), ContentFilter.BLOCKED_MESSAGE);
+
+            if (getView() != null) {
+                getView().setPlayWhenReady(false);
+                getView().finish();
+            }
+        }
     }
 
     // End core events

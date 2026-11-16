@@ -12,6 +12,7 @@ import com.liskovsoft.smartyoutubetv2.common.app.models.playback.ui.UiOptionItem
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.AppDialogPresenter;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.BrowsePresenter;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.base.BasePresenter;
+import com.liskovsoft.smartyoutubetv2.common.misc.ContentFilter;
 import com.liskovsoft.smartyoutubetv2.common.prefs.GeneralData;
 import com.liskovsoft.smartyoutubetv2.common.utils.LoadingManager;
 import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
@@ -49,6 +50,15 @@ public class AppUpdatePresenter extends BasePresenter<Void> implements AppUpdate
     }
 
     public void start(boolean forceCheck) {
+        // Personal build: the official update would replace the filter (and can't install
+        // over this build anyway), so updates come from your own GitHub copy instead.
+        if (ContentFilter.DISABLE_OFFICIAL_UPDATES) {
+            if (forceCheck) {
+                MessageHelpers.showMessage(getContext(), "Updates come from your own GitHub copy");
+            }
+            return;
+        }
+
         mIsForceCheck = forceCheck;
 
         if (forceCheck) {

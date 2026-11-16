@@ -8,6 +8,7 @@ import com.liskovsoft.sharedutils.mylogger.Log;
 import com.liskovsoft.sharedutils.prefs.GlobalPreferences;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.service.VideoStateService;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.service.VideoStateService.State;
+import com.liskovsoft.smartyoutubetv2.common.misc.ContentFilter;
 import com.liskovsoft.smartyoutubetv2.common.prefs.BlockedChannelData;
 
 import java.util.ArrayList;
@@ -454,7 +455,7 @@ public class VideoGroup {
     }
 
     public void add(int idx, Video video) {
-        if (video == null || video.isEmpty() || isChannelBlocked(video) || isWatchedSuggestion(video)) {
+        if (video == null || video.isEmpty() || isChannelBlocked(video) || isWatchedSuggestion(video) || isFilteredContent(video)) {
             return;
         }
 
@@ -492,6 +493,19 @@ public class VideoGroup {
         String channelName = video.getAuthor();
 
         return blockedChannelData.containsChannel(channelId, channelName);
+    }
+
+    /**
+     * Personal filter: news, politics, Shorts and sexual content. See {@link ContentFilter}.
+     */
+    private boolean isFilteredContent(Video video) {
+        if (video.isChapter) {
+            return false;
+        }
+
+        // A whole row titled e.g. "Breaking news" is hidden as well
+        return ContentFilter.isBlockedText(mTitle)
+                || ContentFilter.isBlocked(video.title, video.secondTitle, video.getAuthor(), video.isShorts);
     }
 
     private boolean isWatchedSuggestion(Video video) {

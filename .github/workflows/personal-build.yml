@@ -1,0 +1,105 @@
+name: Build my filtered SmartTube
+
+# Builds the personal (news-free) SmartTube and puts the APK on this repo's
+# "Releases" page under the tag "latest", so it can be downloaded on a phone or TV.
+#
+# Runs on every push to master (including "Sync fork"), or by hand from the Actions tab.
+#
+# Needs four repository secrets (Settings > Secrets and variables > Actions):
+#   SIGNING_KEY         - the keystore file, base64 encoded
+#   KEY_STORE_PASSWORD  - keystore password
+#   ALIAS               - key alias
+#   KEY_PASSWORD        - key password
+# The same key must be used every time, or Android refuses to install updates.
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: personal-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.repository != 'yuliskov/SmartTube'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check signing secrets
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        run: |
+          if [ -z "$SIGNING_KEY" ]; then
+            echo "::error::The SIGNING_KEY secret is missing. Add the four signing secrets first (see the top of this file)."
+            exit 1
+          fi
+
+      - name: Checkout code
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          submodules: recursive
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Mark the version as personal
+        id: version
+        run: |
+          sed -i "s/versionName \"\(.*\)\"/versionName \"\1-personal\"/" smarttubetv/build.gradle
+          echo "name=$(grep "versionName" smarttubetv/build.gradle | head -n 1 | awk -F'"' '{print $2}')" >> "$GITHUB_OUTPUT"
+
+      - name: Configure signing
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          ALIAS: ${{ secrets.ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          echo "$SIGNING_KEY" | base64 --decode > "$RUNNER_TEMP/key.jks"
+          {
+            echo "storeFile=$RUNNER_TEMP/key.jks"
+            echo "storePassword=$KEY_STORE_PASSWORD"
+            echo "keyAlias=$ALIAS"
+            echo "keyPassword=$KEY_PASSWORD"
+          } > keystore.properties
+
+      - name: Build APK
+        run: |
+          chmod +x gradlew
+          ./gradlew clean assembleStbetaRelease
+
+      - name: Collect APKs
+        run: |
+          mkdir -p out
+          cd smarttubetv/build/outputs/apk/stbeta/release
+          cp *_universal.apk   "$GITHUB_WORKSPACE/out/SmartTube-personal-universal.apk"
+          cp *_arm64-v8a.apk   "$GITHUB_WORKSPACE/out/SmartTube-personal-arm64.apk"
+          cp *_armeabi-v7a.apk "$GITHUB_WORKSPACE/out/SmartTube-personal-armv7.apk"
+          ls -la "$GITHUB_WORKSPACE/out"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: SmartTube_${{ steps.version.outputs.name }}
+          path: out/*.apk
+          if-no-files-found: error
+
+      - name: Publish to the "latest" release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.name }}
+        run: |
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest out/*.apk \
+            --title "SmartTube $VERSION" \
+            --notes "Personal build with the news, politics, Shorts and adult-content filter. Install SmartTube-personal-universal.apk if unsure which one you need." \
+            --target "$GITHUB_SHA"

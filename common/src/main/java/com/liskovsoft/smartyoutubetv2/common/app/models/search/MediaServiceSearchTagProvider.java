@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.liskovsoft.mediaserviceinterfaces.ContentService;
 import com.liskovsoft.mediaserviceinterfaces.ServiceManager;
 import com.liskovsoft.sharedutils.mylogger.Log;
+import com.liskovsoft.smartyoutubetv2.common.misc.ContentFilter;
 import com.liskovsoft.smartyoutubetv2.common.app.models.search.vineyard.Tag;
 import com.liskovsoft.sharedutils.rx.RxHelper;
 import com.liskovsoft.youtubeapi.service.YouTubeServiceManager;
@@ -33,7 +34,7 @@ public class MediaServiceSearchTagProvider implements SearchTagsProvider {
 
         mTagsAction = mContentService.getSearchTagsObserve(query)
                 .subscribe(
-                        tags -> callback.onResults(Tag.from(tags)),
+                        tags -> callback.onResults(Tag.from(ContentFilter.filterTexts(tags))),
                         error -> Log.e(TAG, "Result is empty. Just ignore it. Error msg: %s", error.getMessage())
                 );
     }

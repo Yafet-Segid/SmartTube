@@ -19,6 +19,8 @@ import com.liskovsoft.smartyoutubetv2.common.app.presenters.dialogs.VideoActionP
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.dialogs.menu.VideoMenuPresenter;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.interfaces.VideoGroupPresenter;
 import com.liskovsoft.smartyoutubetv2.common.app.views.SearchView;
+import com.liskovsoft.smartyoutubetv2.common.misc.ContentFilter;
+import com.liskovsoft.sharedutils.helpers.MessageHelpers;
 import com.liskovsoft.smartyoutubetv2.common.misc.BrowseProcessorManager;
 import com.liskovsoft.smartyoutubetv2.common.misc.MediaServiceManager;
 import com.liskovsoft.smartyoutubetv2.common.prefs.AccountsData;
@@ -172,6 +174,14 @@ public class SearchPresenter extends BasePresenter<SearchView> implements VideoG
         Log.d(TAG, "Start search for '%s'", searchText);
 
         disposeActions();
+
+        if (ContentFilter.isBlockedSearch(searchText)) {
+            getView().clearSearch();
+            getView().showProgressBar(false);
+            MessageHelpers.showMessage(getContext(), ContentFilter.BLOCKED_MESSAGE);
+            return;
+        }
+
         getView().showProgressBar(true);
 
         ContentService contentService = getContentService();

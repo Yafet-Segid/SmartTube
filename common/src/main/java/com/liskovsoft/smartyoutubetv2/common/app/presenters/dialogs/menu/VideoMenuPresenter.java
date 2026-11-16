@@ -460,6 +460,11 @@ public class VideoMenuPresenter extends BaseMenuPresenter {
         BlockedChannelData blockedChannelData = BlockedChannelData.instance(getContext());
         boolean isBlocked = blockedChannelData.containsChannel(channelId, channelName);
 
+        // Personal build: blocking is permanent, so there is no "Unblock" button
+        if (isBlocked) {
+            return;
+        }
+
         String buttonText = isBlocked
                 ? getContext().getString(R.string.dialog_unblock_channel)
                 : getContext().getString(R.string.dialog_block_channel);
