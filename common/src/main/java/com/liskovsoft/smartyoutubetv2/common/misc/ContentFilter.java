@@ -97,7 +97,16 @@ public final class ContentFilter {
             "veronica weffer", "verónica weffer", "veronicaweffer",
             // GTA (all games, including GTA 6)
             "gta", "gta6", "gtavi", "gta vi", "gta 6", "gta5", "gtav", "gta v",
-            "grand theft auto", "rockstar games"
+            "grand theft auto", "rockstar games",
+            // Gambling and betting
+            "gambling", "gamble", "casino", "casinos", "slot machine", "slot machines", "slots",
+            "sports betting", "betting", "bet365", "draftkings", "fanduel", "parlay", "parlays",
+            "poker", "blackjack", "roulette", "jackpot", "lottery", "scratch off", "scratch offs",
+            "crypto casino", "get rich quick",
+            // Celebrity drama and gossip
+            "celebrity gossip", "hollywood gossip", "gossip", "influencer drama", "youtuber drama",
+            "drama alert", "dramaalert", "spill the tea", "spilling the tea", "exposed", "scandal",
+            "feud", "diss track", "tmz", "the shade room", "keemstar"
     );
 
     // ---------------------------------------------------------------------
