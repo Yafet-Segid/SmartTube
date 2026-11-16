@@ -91,6 +91,8 @@ public final class ContentFilter {
             "texas politics", "texas election", "texas elections", "texas legislature",
             "texas senate", "texas house", "texas runoff", "texas primary", "redistricting",
             "midterm elections", "midterm election", "2026 midterms", "election day",
+            // NATO
+            "nato", "nato summit", "otan",
             // Trade deals
             "usmca", "cusma", "nafta", "t-mec", "trade war", "trade deal", "trade talks"
     );
