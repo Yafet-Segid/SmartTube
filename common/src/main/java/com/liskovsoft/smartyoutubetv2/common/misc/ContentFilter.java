@@ -156,7 +156,7 @@ public final class ContentFilter {
     // 6. News and political channels (matched against the channel name)
     // ---------------------------------------------------------------------
     private static final List<String> CHANNELS = Arrays.asList(
-            "cnn", "fox news", "fox business", "drm", "drm news", "the damage report", "damage report", "john iadarola", "true north", "true north centre", "tnc news", "canada dispatch", "livenow from fox", "livenow", "live now from fox", "fox weather", "fox 4", "fox 26 houston", "fox 7 austin", "wfaa", "khou", "khou 11", "kvue", "kxan", "kprc", "ksat", "kdfw", "nbc dfw", "nbc 5 dallas-fort worth", "fox 4 dallas-fort worth", "cbs news texas", "texas tribune", "the texas tribune", "cbc", "cbc news", "ctv news", "ctv", "global news", "cpac", "the national", "rebel news", "the globe and mail", "toronto star", "national post", "msnbc", "ms now", "abc news", "cbs news",
+            "cnn", "fox news", "fox business", "drm", "drm news", "9 news australia", "9news", "7news", "7news australia", "10news", "10 news first", "a current affair", "60 minutes australia", "sbs news", "abc news (australia)", "sky news australia", "the project", "today show australia", "the damage report", "damage report", "john iadarola", "true north", "true north centre", "tnc news", "canada dispatch", "livenow from fox", "livenow", "live now from fox", "fox weather", "fox 4", "fox 26 houston", "fox 7 austin", "wfaa", "khou", "khou 11", "kvue", "kxan", "kprc", "ksat", "kdfw", "nbc dfw", "nbc 5 dallas-fort worth", "fox 4 dallas-fort worth", "cbs news texas", "texas tribune", "the texas tribune", "cbc", "cbc news", "ctv news", "ctv", "global news", "cpac", "the national", "rebel news", "the globe and mail", "toronto star", "national post", "msnbc", "ms now", "abc news", "cbs news",
             "nbc news", "bbc news", "sky news", "al jazeera english", "al jazeera",
             "reuters", "associated press", "pbs newshour", "newsnation", "newsmax",
             "cnbc", "cnbc television", "bloomberg television", "bloomberg originals",
@@ -190,6 +190,8 @@ public final class ContentFilter {
     private static final Pattern POLITICIAN_PATTERN = buildPattern(POLITICIANS);
     /** Channels: checked only in channel names, so a title like "the view from the top" is fine. */
     private static final Pattern CHANNEL_PATTERN = buildPattern(CHANNELS, NEWS_CHANNEL_WORDS);
+    /** Station-style channel names: a number joined to "news", e.g. "7news". */
+    private static final Pattern NUMBER_NEWS_PATTERN = Pattern.compile("(?<![\\p{L}])\\d+news(?![\\p{L}])");
     /** Hashtags like #news or #BreakingNews in a description. */
     private static final Pattern HASHTAG_PATTERN = Pattern.compile("#([\\p{L}\\p{N}_]+)");
     /** A description with this many different blocked words counts as news / politics. */
@@ -230,7 +232,10 @@ public final class ContentFilter {
             return false;
         }
 
-        return CHANNEL_PATTERN.matcher(normalize(author)).find();
+        String name = normalize(author);
+
+        // Joined station names like "7NEWS", "9News" or "WSB-TV 2 News"
+        return CHANNEL_PATTERN.matcher(name).find() || NUMBER_NEWS_PATTERN.matcher(name).find();
     }
 
     /**
