@@ -114,7 +114,7 @@ public final class ContentFilter {
             "nbc news", "bbc news", "sky news", "al jazeera english", "al jazeera",
             "reuters", "associated press", "pbs newshour", "newsnation", "newsmax",
             "cnbc", "cnbc television", "bloomberg television", "bloomberg originals",
-            "c-span", "dw news", "france 24 english", "wion", "channel 4 news",
+            "c-span", "dw", "dw news", "dw documentary", "crux", "france 24 english", "wion", "channel 4 news",
             "guardian news", "the guardian", "the new york times", "washington post",
             "the wall street journal", "vice news", "forbes breaking news",
             "the young turks", "breaking points", "meidastouch", "brian tyler cohen",
