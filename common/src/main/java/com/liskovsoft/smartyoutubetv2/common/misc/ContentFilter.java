@@ -131,7 +131,7 @@ public final class ContentFilter {
             "jesse watters", "megyn kelly", "alex jones", "joy reid", "don lemon",
             "anderson cooper", "jake tapper", "dave rubin", "glenn beck", "jon stewart",
             // Your own additions
-            "veronica weffer", "verónica weffer", "veronicaweffer",
+            "veronica weffer", "verónica weffer", "veronicaweffer", "viajando con vero", "viajandoconvero", "viajando con verónica",
             "nathaniel drew", "nathanieldrew", "afroguajira", "afro guajira", "afro-guajira",
             "patrick bet-david", "patrick bet david", "patrickbetdavid", "pbd podcast", "pbd", "valuetainment", "aba and preach", "aba & preach", "aba&preach", "abaandpreach", "aba n preach", "vanessa wingårdh", "vanessa wingardh", "wingårdh", "wingardh", "vanessawingardh", "myron gaines", "sneako", "kevin samuels", "hamza ahmed", "joe rogan", "theo von",
             "tim dillon", "lex fridman", "johnny harris", "andrew tate", "tristan tate", "tate brothers", "cobratate", "cobra tate", "top g", "vic mensa", "jensen huang", "nick shirley", "nickshirley", "claus kellerman", "clauskellerman", "tyler bucket", "tylerbucket", "jamin laine", "jaminlaine",
